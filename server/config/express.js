@@ -85,4 +85,13 @@ module.exports = function (app) {
 
   app.use(flash());
 
+// =========================================
+  app.use(function(req, res, next) {
+    console.log('===this is the user==');
+    console.log(req.user);
+    console.log('===this is the user==');
+    next();
+  });
+// =========================================
+
 };

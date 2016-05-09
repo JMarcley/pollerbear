@@ -15,7 +15,7 @@ const Navigation = ({user, dispatch}) => {
       <nav className={cx('navigation')} role="navigation">
         <Link to="/"
           className={cx('item', 'logo')}
-          activeClassName={cx('active')}>Ninja Ocean</Link>
+          activeClassName={cx('active')}>PollerBear.io</Link>
           { user.authenticated ? (
             <Link onClick={logout}
               className={cx('item')} to="/">Logout</Link>
@@ -24,6 +24,10 @@ const Navigation = ({user, dispatch}) => {
           )}
           <Link className={cx('item')} to="/dashboard">Dashboard</Link>
           <Link to="/about" className={cx('item')} activeClassName={cx('active')}>About</Link>
+					{ user.authenticated ? (
+            <Link className={cx('item')} to="/profile">Profile</Link>
+          ) : ( null )}
+
       </nav>
     );
 };

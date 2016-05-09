@@ -6,6 +6,9 @@ var appConfig = require('./config/appConfig');
 var app = express();
 var compiled_app_module_path = path.resolve(__dirname, '..', 'public', 'assets', 'server.js');
 var App = require(compiled_app_module_path);
+// For HTTPS connection
+var https = require('https');
+var serverConfig = require('./config/sslConfig');
 
 /*
  * Database-specific setup
@@ -51,4 +54,5 @@ app.get('*', function (req, res, next) {
   App.default(req, res);
 });
 
-app.listen(app.get('port'));
+https.createServer(serverConfig.options, app).listen(app.get('port'));
+// app.listen(app.get('port'));

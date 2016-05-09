@@ -35,6 +35,25 @@ module.exports = function(app) {
       failureRedirect: '/login'
     }));
 
+  // facebook auth
+  // Redirect the user to Facebook for authentication. When complete, Facebook
+  // will redirect the user back to the application at
+  // /auth/facebook/callback
+  app.get('/auth/facebook', passport.authenticate('facebook', { scope: [
+        'public_profile',
+        'email'
+      ] }));
+  // app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
+
+  // Facebook will redirect the user to this URL after authentication. Finish the
+  // process by verifying the assertion. If valid, the user will be logged in.
+  // Otherwise, the authentication has failed.
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    }));
+
   // topic routes
   app.get('/topic', topics.all);
 

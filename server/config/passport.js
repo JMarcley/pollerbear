@@ -3,6 +3,7 @@ var passport = require('passport');
 var User = require('../models/user');
 var local = require('./passport/local');
 var google = require('./passport/google');
+var facebook = require('./passport/facebook');
 
 module.exports = function() {
   // Configure Passport authenticated session persistence.
@@ -25,6 +26,7 @@ module.exports = function() {
   //use the following strategies
   passport.use(local);
   passport.use(google);
+  passport.use(facebook);
 
 
 };

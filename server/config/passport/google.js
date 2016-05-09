@@ -17,16 +17,27 @@ var secrets = require('../secrets');
  *       - If there is, return an error message.
  *       - Else create a new account.
  *
- * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens. 
+ * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens.
  * The strategy requires a verify callback, which accepts these credentials and calls done providing a user, as well
  * as options specifying a client ID, client secret, and callback URL.
  */
 module.exports = new GoogleStrategy({
 	clientID: secrets.google.clientID,
 	clientSecret: secrets.google.clientSecret,
-	callbackURL: secrets.google.callbackURL
+	callbackURL: secrets.google.callbackURL,
+	passReqToCallback: true
 },  function(req, accessToken, refreshToken, profile, done) {
+	console.log('=====================================================');
+	console.log(req);
+	console.log('=====================================================');
+	console.log(accessToken);
+	console.log('=====================================================');
+	console.log(refreshToken);
+	console.log('=====================================================');
+	console.log(profile);
 	if (req.user) {
+		console.log('req.user = true');
+		console.log(req.user);
 		User.findOne({ google: profile.id }, function(err, existingUser) {
 			if (existingUser) {
 				return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.'})
